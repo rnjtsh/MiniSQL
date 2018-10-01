@@ -68,8 +68,8 @@ for tbl in metadata_dict:
     db_rows = extract_from_csv(tbl)
     for row in db_rows:
         row = row.split(',')
-        for i in range(len(row)):
-            db_ds[tbl][metadata_dict[tbl][i]].append(int(row[i].strip('""')))
+        for j in range(len(row)):
+            db_ds[tbl][metadata_dict[tbl][j]].append(int(row[j].strip('""')))
 
 tbl_cnt = 0
 def agg_func(func, tbl, col_name):
