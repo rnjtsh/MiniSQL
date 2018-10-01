@@ -4,17 +4,17 @@ Created on Thu Jan 18 16:13:34 2018
 
 @author: ranajit
 """
-from __future__ import print_function
 import os
 import sys
 import copy
+from __future__ import print_function
 from collections import OrderedDict
 sys.path.insert(0,os.getcwd() + "sqlparse")
 import sqlparse
 def fileExists(t):
     return os.path.isfile(t + '.csv')
 
-def loadMetadata(db_dict):
+def loadMetadata(loadMetaData_dict):
     m_file = open('metadata.txt', 'r');
     tab = False
     for content in m_file:
@@ -25,17 +25,17 @@ def loadMetadata(db_dict):
         if tab:
             tab = False
             tab_name = content.strip()
-            db_dict[content.strip()] = []
+            loadMetaData_dict[content.strip()] = []
             continue
         if content.strip() == '<end_table>':
             continue
 
-        db_dict[tab_name].append(content.strip())
+        loadMetaData_dict[tab_name].append(content.strip())
 
     #Delete the tables from dictionary whose file doesn't exist
-    for table in db_dict:
+    for table in loadMetaData_dict:
         if fileExists(table) == False:
-            del db_dict[table]
+            del loadMetaData_dict[table]
             # print table + ".csv doesn't exist"
 
 def extract_from_csv(table):
